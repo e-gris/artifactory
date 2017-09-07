@@ -1,6 +1,6 @@
 {
   "name": "exgrizz-artifactory",
-  "version": "2.0.12",
+  "version": "99.0.13",
   "author": "Bryan Belanger, patched by Eric Griswold",
   "summary": "Forked from autostructure-artifactory. Installs Artifactory OSS",
   "license": "Apache-2.0",
