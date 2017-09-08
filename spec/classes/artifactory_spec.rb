@@ -51,7 +51,7 @@ describe 'artifactory' do
             is_expected.to contain_file('/opt/jfrog/artifactory/tomcat/lib/mysql.jar').with(
               'source' => 'puppet:///modules/my_module/mysql.jar',
               'mode' => '0775',
-              'owner' => 'artifactory'
+              'owner' => 'jfrog'
             )
           }
 
