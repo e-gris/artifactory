@@ -9,8 +9,8 @@ class artifactory::config {
     mode   => '0755',
   }
 
-  file { "${::artifactory::artifactory_home}"/etc:
-    ensure => directory,
+  file { "${::artifactory::artifactory_home}/etc":
+    ensure => directory
   }
 
   # Install storage.properties if Available
