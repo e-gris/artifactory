@@ -15,8 +15,22 @@ class artifactory::config {
 
   file { "/etc/opt/jfrog":
     ensure => directory,
+    owner  => 'artifactory',
+    group  => 'artifactory',
   }
 
+  file { "/etc/opt/jfrog/artifactory":
+    ensure => directory,
+    owner  => 'artifactory',
+    group  => 'artifactory',
+  }
+
+  file { "/etc/opt/jfrog/artifactory/default":
+    ensure => present,
+    owner  => 'artifactory',
+    group  => 'artifactory',
+  }
+    
   
   # Install storage.properties if Available
   if(
