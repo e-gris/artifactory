@@ -10,9 +10,14 @@ class artifactory::config {
   }
 
   file { "${::artifactory::artifactory_home}/etc":
-    ensure => directory
+    ensure => directory,
   }
 
+  file { "/etc/opt/jfrog":
+    ensure => directory,
+  }
+
+  
   # Install storage.properties if Available
   if(
     $::artifactory::jdbc_driver_url or
