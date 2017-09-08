@@ -3,6 +3,12 @@
 # This class is called from artifactory for service config.
 #
 class artifactory::config {
+  file { "${::artifactory::artifactory_home}":
+    ensure => directory,
+    owner  => 'artifactory',
+    mode   => '0755',
+  }
+  
   # Install storage.properties if Available
   if(
     $::artifactory::jdbc_driver_url or
