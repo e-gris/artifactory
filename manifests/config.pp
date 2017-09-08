@@ -5,7 +5,7 @@
 class artifactory::config {
   file { "${::artifactory::artifactory_home}":
     ensure => directory,
-    owner  => 'jfrog',
+    owner  => 'artifactory',
     mode   => '0755',
   }
 
@@ -55,8 +55,8 @@ class artifactory::config {
 
       file { "${::artifactory::artifactory_home}/tomcat/lib/${file_name}":
         source => $::artifactory::jdbc_driver_url,
-        mode   => '0775',
-        owner  => 'jfrog',
+        mode   => '0644',
+        owner  => 'artifactory',
       }
     }
     else {
