@@ -8,7 +8,11 @@ class artifactory::config {
     owner  => 'jfrog',
     mode   => '0755',
   }
-  
+
+  file { "${::artifactory::artifactory_home}"/etc:
+    ensure => directory,
+  }
+
   # Install storage.properties if Available
   if(
     $::artifactory::jdbc_driver_url or
