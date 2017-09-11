@@ -18,7 +18,7 @@ class artifactory(
   Optional[String] $binary_provider_filesystem_dir                        = undef,
   Optional[String] $binary_provider_cache_dir                             = undef,
 ) {
-  $artifactory_home = '/opt/jfrog/artifactory'
+  $artifactory_home = '/var/opt/jfrog/artifactory'
   $service_name = 'artifactory'
 
   class{'::artifactory::yum': }

@@ -48,7 +48,7 @@ describe 'artifactory' do
           it { is_expected.to compile.with_all_deps }
 
           it {
-            is_expected.to contain_file('/opt/jfrog/artifactory/tomcat/lib/mysql.jar').with(
+            is_expected.to contain_file('/var/opt/jfrog/artifactory/tomcat/lib/mysql.jar').with(
               'source' => 'puppet:///modules/my_module/mysql.jar',
               'mode' => '0775',
               'owner' => 'artifactory'
@@ -56,15 +56,15 @@ describe 'artifactory' do
           }
 
           it {
-            is_expected.to contain_file('/opt/jfrog/artifactory/etc/db.properties').with(
+            is_expected.to contain_file('/var/opt/jfrog/artifactory/etc/db.properties').with(
               'ensure' => 'file'
             )
           }
 
           it {
-            is_expected.to contain_file('/opt/jfrog/artifactory/etc/storage.properties').with(
+            is_expected.to contain_file('/var/opt/jfrog/artifactory/etc/storage.properties').with(
               'ensure' => 'link',
-              'target' => '/opt/jfrog/artifactory/etc/db.properties'
+              'target' => '/var/opt/jfrog/artifactory/etc/db.properties'
             )
           }
         end
