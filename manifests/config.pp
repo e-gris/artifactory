@@ -9,10 +9,11 @@ class artifactory::config {
     mode   => '0755',
   }
 
-  file { "${::artifactory::artifactory_home}/etc":
-    # Yum unpack wants this for its own
-    ensure => absent,
-  }
+  ## Not sure what this should be doing
+  #file { "${::artifactory::artifactory_home}/etc":
+  #  # Yum unpack wants this for its own
+  #  ensure => absent,
+  #}
 
   file { "/etc/opt/jfrog":
     ensure => directory,
