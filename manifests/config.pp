@@ -10,7 +10,8 @@ class artifactory::config {
   }
 
   file { "${::artifactory::artifactory_home}/etc":
-    ensure => directory,
+    # Yum unpack wants this for its own
+    ensure => absent,
   }
 
   file { "/etc/opt/jfrog":
