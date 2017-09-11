@@ -32,7 +32,12 @@ class artifactory::config {
     owner  => 'artifactory',
     group  => 'artifactory',
   }
-    
+
+  file { "/var/opt/jfrog/run":
+    ensure => directory,
+    owner  => 'artifactory',
+    group  => 'artifactory',
+  }
   
   # Install storage.properties if Available
   if(
