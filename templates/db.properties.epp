@@ -2,12 +2,6 @@
       String                                         $db_url,
       String                                         $db_username,
       String                                         $db_password,
-      Enum['filesystem', 'fullDb','cachedFS']        $binary_provider_type           = 'filesystem',
-      Optional[Integer]                              $pool_max_active                = undef,
-      Optional[Integer]                              $pool_max_idle                  = undef,
-      Optional[Integer]                              $binary_provider_cache_maxsize  = undef,
-      Optional[String]                               $binary_provider_filesystem_dir = undef,
-      Optional[String]                               $binary_provider_cache_dir      = undef
 | -%>
 <%-
 $db_driver = $db_type ? {
