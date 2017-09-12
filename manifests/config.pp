@@ -60,7 +60,7 @@ class artifactory::config {
   }
   $database_variables_defined_size = size($database_variables_defined)
 
-  info("database_variables_defined_size == ", $database_variables_defined_size)
+  notify{"database_variables_defined_size == ${database_variables_defined_size}": }
   
   if ($database_variables_defined_size == 0) {
     info("No database details provided, providing default")
