@@ -94,16 +94,16 @@ class artifactory::config {
 
     $file_name =  regsubst($::artifactory::jdbc_driver_url, '.+\/([^\/]+)$', '\1')
 
-    file { "${::artifactory::artifactory_home}/tomcat/lib":
-      ensure => directory,
-      mode   => '755',
-      owner  => 'artifactory',
-    }
+    # file { "${::artifactory::artifactory_home}/tomcat/lib":
+    #   ensure => directory,
+    #   mode   => '755',
+    #   owner  => 'artifactory',
+    # }
       
-    file { "${::artifactory::artifactory_home}/tomcat/lib/${file_name}":
-      source => $::artifactory::jdbc_driver_url,
-      mode   => '0644',
-      owner  => 'artifactory',
-    }
+    # file { "${::artifactory::artifactory_home}/tomcat/lib/${file_name}":
+    #   source => $::artifactory::jdbc_driver_url,
+    #   mode   => '0644',
+    #   owner  => 'artifactory',
+    # }
   }
 }
