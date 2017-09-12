@@ -87,11 +87,6 @@ class artifactory::config {
       mode    => '0664',
     }
 
-    file { "${::artifactory::artifactory_home}/etc/storage.properties":
-      ensure => link,
-      target => "${::artifactory::artifactory_home}/etc/db.properties",
-    }
-
     $file_name =  regsubst($::artifactory::jdbc_driver_url, '.+\/([^\/]+)$', '\1')
 
     # file { "${::artifactory::artifactory_home}/tomcat/lib":
