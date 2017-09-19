@@ -60,11 +60,9 @@ class artifactory::config {
   $database_variables_defined_size = size($database_variables_defined)
 
   if (!$is_primary) {
-    notify { "HA secondary node. No db.properties needed": }
     info("HA secondary node. No db.properties needed")
   }
   elsif ($database_variables_defined_size == 0) {
-    notify { "Default database": }
     info("No database details provided, providing default")
   }
   elsif ($database_variables_defined_size != $database_variables_size) {
