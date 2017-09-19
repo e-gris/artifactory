@@ -22,13 +22,17 @@ class artifactory::config {
     group  => 'artifactory',
   }
 
-  file { "/etc/opt/jfrog/artifactory/default":
-    ensure => present,
-    owner  => 'artifactory',
-    group  => 'artifactory',
-  }
-
-  file { "/etc/opt/jfrog/artifactory/artifactory.system.properties":
+  $etc_directory = "/etc/opt/jfrog/artifactory"
+  $etc_files = [
+                "$etc_directory/artifactory.config.xml",
+                "$etc_directory/artifactory.system.properties",
+                "$etc_directory/binarystore.xml",
+                "$etc_directory/default",
+                "$etc_directory/logback.xml",
+                "$etc_directory/mimetypes.xml"
+                ]
+               
+  file { $etc_files :
     ensure => present,
     owner  => 'artifactory',
     group  => 'artifactory',
