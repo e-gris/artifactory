@@ -5,7 +5,9 @@
 #
 class artifactory::service {
 
-  service { 'artifactory':
-    ensure => running,
-  }
+  ## Can't manage service run/stopped state because of artifactory bug.
+  #
+  #  service { 'artifactory':
+  #    ensure => running,
+  #  }
 }

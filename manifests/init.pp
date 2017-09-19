@@ -17,6 +17,7 @@ class artifactory(
   Optional[Integer] $binary_provider_cache_maxsize                        = undef,
   Optional[String] $binary_provider_filesystem_dir                        = undef,
   Optional[String] $binary_provider_cache_dir                             = undef,
+  Optional[Boolean] $is_primary                                           = true,
 ) {
   $artifactory_home = '/var/opt/jfrog/artifactory'
   $service_name = 'artifactory'

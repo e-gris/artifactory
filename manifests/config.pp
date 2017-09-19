@@ -3,17 +3,12 @@
 # This class is called from artifactory for service config.
 #
 class artifactory::config {
+
   file { "${::artifactory::artifactory_home}":
     ensure => directory,
     owner  => 'artifactory',
     mode   => '0755',
   }
-
-  ## Not sure what this should be doing
-  #file { "${::artifactory::artifactory_home}/etc":
-  #  # Yum unpack wants this for its own
-  #  ensure => absent,
-  #}
 
   file { "/etc/opt/jfrog":
     ensure => directory,
@@ -60,9 +55,11 @@ class artifactory::config {
   }
   $database_variables_defined_size = size($database_variables_defined)
 
-  notify{"database_variables_defined_size == ${database_variables_defined_size}": }
-  
-  if ($database_variables_defined_size == 0) {
+  if (!$is_primary) {
+    notify { "HA secondary node. No db.properties needed" }
+    info("HA secondary node. No db.properties needed")
+  }
+  elsif ($database_variables_defined_size == 0) {
     info("No database details provided, providing default")
   }
   elsif ($database_variables_defined_size != $database_variables_size) {
