@@ -34,9 +34,6 @@ class artifactory::config {
     group  => 'artifactory',
   }
 
-  ## Create binarystore.xml
-
-  ## Create db.properties
   # Install db.properties if we can
   $database_variables = [
     $::artifactory::jdbc_driver_url,
@@ -56,7 +53,7 @@ class artifactory::config {
   $database_variables_defined_size = size($database_variables_defined)
 
   if (!$is_primary) {
-    notify { "HA secondary node. No db.properties needed" }
+    notify { "HA secondary node. No db.properties needed": }
     info("HA secondary node. No db.properties needed")
   }
   elsif ($database_variables_defined_size == 0) {
