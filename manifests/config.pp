@@ -57,6 +57,7 @@ class artifactory::config {
     info("HA secondary node. No db.properties needed")
   }
   elsif ($database_variables_defined_size == 0) {
+    notify { "Default database": }
     info("No database details provided, providing default")
   }
   elsif ($database_variables_defined_size != $database_variables_size) {
@@ -71,18 +72,11 @@ class artifactory::config {
           db_username                    => $::artifactory::db_username,
           db_password                    => $::artifactory::db_password,
           db_type                        => $::artifactory::db_type,
-          binary_provider_type           => $::artifactory::binary_provider_type,
-          pool_max_active                => $::artifactory::pool_max_active,
-          pool_max_idle                  => $::artifactory::pool_max_idle,
-          binary_provider_cache_maxsize  => $::artifactory::binary_provider_cache_maxsize,
-          binary_provider_filesystem_dir => $::artifactory::binary_provider_filesystem_dir,
-          binary_provider_cache_dir      => $::artifactory::binary_provider_cache_dir,
         }),
       mode    => '0664',
     }
 
-    $file_name =  regsubst($::artifactory::jdbc_driver_url, '.+\/([^\/]+)$', '\1')
-
+    # $file_name =  regsubst($::artifactory::jdbc_driver_url, '.+\/([^\/]+)$', '\1')
     # file { "${::artifactory::artifactory_home}/tomcat/lib":
     #   ensure => directory,
     #   mode   => '755',
