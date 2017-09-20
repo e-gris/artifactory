@@ -29,7 +29,7 @@ class artifactory::config {
     ensure => directory,
     owner  => $::artifactory::artifactory_user,
     group  => $::artifactory::artifactory_group,
-    mode   => '0755',
+    mode   => '0700',
   }
 
   $etc_files = [
@@ -47,12 +47,6 @@ class artifactory::config {
     group  => $::artifactory::artifactory_group,
     mode   => '0644',
   }
-
-  #file { "/var/opt/jfrog/run":
-  #  ensure => directory,
-  #  owner  => 'artifactory',
-  #  group  => 'artifactory',
-  #}
 
   # Install db.properties if we can
   $database_variables = [
