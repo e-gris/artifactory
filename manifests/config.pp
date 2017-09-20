@@ -5,44 +5,32 @@ class artifactory::config {
     line => "artifactory -  nofile 32000",
   }
 
-  $home_paths = split(dirname($::artifactory::artifactory_home), '/')
-  notify { "XXXXXX home_paths == $home_paths": }
-  notify { "XXXXXX artifactory_home == $artifactory_home": }
+  # Ack! Ptth!
+  exec { "make artifactory home":
+    command => "mkdir --parents $::artifactory::artifactory_home",
+    unless  => "test -d $::artifactory::artifactory_home",
+    path    => "/bin:/usr/bin",
+  }
 
-  #each ($home_paths) | $directory | {
-  #  file { $directory: ensure => directory, }
-  #}
+  file { "${::artifactory::artifactory_home}":
+     ensure => directory,
+     owner  => $::artifactory::artifactory_user,
+     group  => $::artifactory::artifactory_group,
+     mode   => '0755',
+  }
 
-
-  # each ($home_paths) | $directory | {
-  #   if (!defined(File[$directory])) {
-  #     file { $directory:
-  #       ensure => directory,
-  #     }
-  #   }
-  # }
-  # file { "${::artifactory::artifactory_home}":
-  #   ensure => directory,
-  #   owner  => $::artifactory::artifactory_user,
-  #   group  => $::artifactory::artifactory_group,
-  #   mode   => '0755',
-  # }
-
-  
-  # $etc_paths = split(dirname($::artifactory::artifactory_etc), '/')
-  # each ($etc_paths) | $directory | {
-  #   if (!defined(File[$directory])) {
-  #     file { $directory:
-  #       ensure => directory,
-  #     }
-  #   }
-  # }
-  # file { "${::artifactory::artifactory_etc}":
-  #   ensure => directory,
-  #   owner  => $::artifactory::artifactory_user,
-  #   group  => $::artifactory::artifactory_group,
-  #   mode   => '0755',
-  # }
+  exec { "make artifactory etc":
+    command => "mkdir --parents $::artifactory::artifactory_etc",
+    unless  => "test -d $::artifactory::artifactory_etc",
+    path    => "/bin:/usr/bin",
+  }
+    
+  file { "${::artifactory::artifactory_etc}":
+    ensure => directory,
+    owner  => $::artifactory::artifactory_user,
+    group  => $::artifactory::artifactory_group,
+    mode   => '0755',
+  }
 
   $etc_files = [
                 "${::artifactory::artifactory_etc}/artifactory.config.xml",
