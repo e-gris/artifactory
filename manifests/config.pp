@@ -9,7 +9,7 @@ class artifactory::config {
   info("XXXXXX home_paths == $home_paths")
   info("XXXXXX artifactory_home == $artifactory_home")
   each ($home_paths) | $directory | {
-    if !defined(File[$directory]) {
+    if (!defined(File[$directory])) {
       file { $directory:
         ensure => directory,
       }
@@ -25,7 +25,7 @@ class artifactory::config {
   
   $etc_paths = split(dirname($::artifactory::artifactory_etc), '/')
   each ($etc_paths) | $directory | {
-    if !defined(File[$directory]) {
+    if (!defined(File[$directory])) {
       file { $directory:
         ensure => directory,
       }
