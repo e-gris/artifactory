@@ -1,49 +1,62 @@
-# == Class artifactory::config
-#
-# This class is called from artifactory for service config.
-#
 class artifactory::config {
 
+  file_line { "artifactory file limits":
+    path => "/etc/security/limits.conf",
+    line => "artifactory -  nofile 32000",
+  }
+
+  $home_paths = split(dirname(${::artifactory::artifactory_home}), '/')
+  each ($home_paths) | $directory | {
+    if !defined(File[$directory]) {
+      file { $directory:
+        ensure => directory,
+      }
+    }
+  }
   file { "${::artifactory::artifactory_home}":
     ensure => directory,
-    owner  => 'artifactory',
+    owner  => $::artifactory::artifactory_user,
+    group  => $::artifactory::artifactory_group,
     mode   => '0755',
   }
 
-  file { "/etc/opt/jfrog":
+  
+  $etc_paths = split(dirname(${::artifactory::artifactory_etc}), '/')
+  each ($etc_paths) | $directory | {
+    if !defined(File[$directory]) {
+      file { $directory:
+        ensure => directory,
+      }
+    }
+  }
+  file { "${::artifactory::artifactory_etc}":
     ensure => directory,
-    owner  => 'artifactory',
-    group  => 'artifactory',
+    owner  => $::artifactory::artifactory_user,
+    group  => $::artifactory::artifactory_group,
+    mode   => '0755',
   }
 
-  file { "/etc/opt/jfrog/artifactory":
-    ensure => directory,
-    owner  => 'artifactory',
-    group  => 'artifactory',
-  }
-
-  $etc_directory = "/etc/opt/jfrog/artifactory"
   $etc_files = [
-                "$etc_directory/artifactory.config.xml",
-                "$etc_directory/artifactory.system.properties",
-                "$etc_directory/binarystore.xml",
-                "$etc_directory/default",
-                "$etc_directory/logback.xml",
-                "$etc_directory/mimetypes.xml"
+                "${::artifactory::artifactory_etc}/artifactory.config.xml",
+                "${::artifactory::artifactory_etc}/artifactory.system.properties",
+                "${::artifactory::artifactory_etc}/binarystore.xml",
+                "${::artifactory::artifactory_etc}/default",
+                "${::artifactory::artifactory_etc}/logback.xml",
+                "${::artifactory::artifactory_etc}/mimetypes.xml"
                 ]
                
   file { $etc_files :
     ensure => present,
-    owner  => 'artifactory',
-    group  => 'artifactory',
+    owner  => $::artifactory::artifactory_user,
+    group  => $::artifactory::artifactory_group,
     mode   => '0644',
   }
 
-  file { "/var/opt/jfrog/run":
-    ensure => directory,
-    owner  => 'artifactory',
-    group  => 'artifactory',
-  }
+  #file { "/var/opt/jfrog/run":
+  #  ensure => directory,
+  #  owner  => 'artifactory',
+  #  group  => 'artifactory',
+  #}
 
   # Install db.properties if we can
   $database_variables = [
@@ -77,10 +90,10 @@ class artifactory::config {
       ensure  => file,
       content => epp(
         'artifactory/db.properties.epp', {
-          db_url                         => $::artifactory::db_url,
-          db_username                    => $::artifactory::db_username,
-          db_password                    => $::artifactory::db_password,
-          db_type                        => $::artifactory::db_type,
+          db_url      => $::artifactory::db_url,
+          db_username => $::artifactory::db_username,
+          db_password => $::artifactory::db_password,
+          db_type     => $::artifactory::db_type,
         }),
       mode    => '0664',
     }

@@ -1,8 +1,3 @@
-# == Class artifactory::install
-#
-# This class is called from artifactory for install.
-#
-
 class artifactory::install {
   if ($::artifactory::package_version) {
     $artifactory_package_ensure = $::artifactory::package_version
