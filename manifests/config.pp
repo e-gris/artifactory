@@ -9,9 +9,9 @@ class artifactory::config {
   info("XXXXXX home_paths == $home_paths")
   info("XXXXXX artifactory_home == $artifactory_home")
 
-  each ($home_paths) | $directory | {
-    file { $directory: ensure => directory, }
-  }
+  #each ($home_paths) | $directory | {
+  #  file { $directory: ensure => directory, }
+  #}
 
 
   # each ($home_paths) | $directory | {
@@ -21,28 +21,28 @@ class artifactory::config {
   #     }
   #   }
   # }
-  file { "${::artifactory::artifactory_home}":
-    ensure => directory,
-    owner  => $::artifactory::artifactory_user,
-    group  => $::artifactory::artifactory_group,
-    mode   => '0755',
-  }
+  # file { "${::artifactory::artifactory_home}":
+  #   ensure => directory,
+  #   owner  => $::artifactory::artifactory_user,
+  #   group  => $::artifactory::artifactory_group,
+  #   mode   => '0755',
+  # }
 
   
-  $etc_paths = split(dirname($::artifactory::artifactory_etc), '/')
-  each ($etc_paths) | $directory | {
-    if (!defined(File[$directory])) {
-      file { $directory:
-        ensure => directory,
-      }
-    }
-  }
-  file { "${::artifactory::artifactory_etc}":
-    ensure => directory,
-    owner  => $::artifactory::artifactory_user,
-    group  => $::artifactory::artifactory_group,
-    mode   => '0755',
-  }
+  # $etc_paths = split(dirname($::artifactory::artifactory_etc), '/')
+  # each ($etc_paths) | $directory | {
+  #   if (!defined(File[$directory])) {
+  #     file { $directory:
+  #       ensure => directory,
+  #     }
+  #   }
+  # }
+  # file { "${::artifactory::artifactory_etc}":
+  #   ensure => directory,
+  #   owner  => $::artifactory::artifactory_user,
+  #   group  => $::artifactory::artifactory_group,
+  #   mode   => '0755',
+  # }
 
   $etc_files = [
                 "${::artifactory::artifactory_etc}/artifactory.config.xml",
