@@ -6,8 +6,8 @@ class artifactory::config {
   }
 
   $home_paths = split(dirname($::artifactory::artifactory_home), '/')
-  info("XXXXXX home_paths == $home_paths")
-  info("XXXXXX artifactory_home == $artifactory_home")
+  notify { "XXXXXX home_paths == $home_paths": }
+  notify { "XXXXXX artifactory_home == $artifactory_home": }
 
   #each ($home_paths) | $directory | {
   #  file { $directory: ensure => directory, }
