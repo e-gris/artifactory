@@ -5,7 +5,7 @@ class artifactory::config {
     line => "artifactory -  nofile 32000",
   }
 
-  $home_paths = split(dirname(${::artifactory::artifactory_home}), '/')
+  $home_paths = split(dirname($::artifactory::artifactory_home), '/')
   each ($home_paths) | $directory | {
     if !defined(File[$directory]) {
       file { $directory:
@@ -21,7 +21,7 @@ class artifactory::config {
   }
 
   
-  $etc_paths = split(dirname(${::artifactory::artifactory_etc}), '/')
+  $etc_paths = split(dirname($::artifactory::artifactory_etc), '/')
   each ($etc_paths) | $directory | {
     if !defined(File[$directory]) {
       file { $directory:
