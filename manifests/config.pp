@@ -86,7 +86,7 @@ class artifactory::config {
           db_password => $::artifactory::db_password,
           db_type     => $::artifactory::db_type,
         }),
-      mode    => '0664',
+      mode    => '0600',
     }
   }
 }
