@@ -85,7 +85,9 @@ class artifactory::config {
           db_username => $::artifactory::db_username,
           db_password => $::artifactory::db_password,
           db_type     => $::artifactory::db_type,
-        }),
+          }),
+      owner   => $::artifactory::artifactory_user,
+      group   => $::artifactory::artifactory_group,    
       mode    => '0600',
     }
   }
