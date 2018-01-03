@@ -186,3 +186,5 @@ Since your module is awesome, other users will want to play with it. Let them kn
 This module is based on work by Autostructure. The following contributors have contributed to this module:
 
 * Bryan Belanger
+* Eric Griswold
+
