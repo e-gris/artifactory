@@ -1,9 +1,8 @@
 require 'rubygems'
 require 'bundler/setup'
-
+require 'puppet/vendor/semantic_puppet/lib/semantic_puppet'
 require 'puppetlabs_spec_helper/rake_tasks'
 require 'puppet/version'
-require 'puppet/vendor/semantic_puppet/lib/semantic_puppet' unless Puppet.version.to_f < 3.6
 require 'puppet-lint/tasks/puppet-lint'
 require 'puppet-syntax/tasks/puppet-syntax'
 require 'metadata-json-lint/rake_task'
@@ -25,10 +24,7 @@ exclude_paths = [
   "spec/**/*"
 ]
 
-# Coverage from puppetlabs-spec-helper requires rcov which
-# doesn't work in anything since 1.8.7
-# Rake::Task[:coverage].clear
-
+Rake::Task[:coverage].clear
 Rake::Task[:lint].clear
 
 PuppetLint.configuration.relative = true
@@ -54,10 +50,4 @@ task :contributors do
 end
 
 desc "Run syntax, lint, and spec tests."
-task test: [
-  :metadata_lint,
-  :syntax,
-  :lint,
-  :rubocop,
-  :spec
-]
+task test: %i(metadata_lint syntax lint rubocop spec)
