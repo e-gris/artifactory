@@ -49,7 +49,7 @@ class artifactory::config {
     mode   => '0644',
   }
 
-  file_line { 'artifactory traffic collection':
+  file_line { 'artifactory FOOBAR traffic collection':
     path => "${::artifactory::artifactory_etc}/artifactory.system.properties",
     line => "artifactory.traffic.collectionActive=${::artifactory::traffic_collection}",
   }
