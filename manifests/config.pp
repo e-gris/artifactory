@@ -49,8 +49,7 @@ class artifactory::config {
     mode   => '0644',
   }
 
-  file_line { 'artifactory == FOOBAR 3 == traffic collection':
-    ensure => present,
+  file_line { 'artifactory == FOOBAR 4 == traffic collection':
     path   => "${::artifactory::artifactory_etc}/artifactory.system.properties",
     line   => "artifactory.traffic.collectionActive=${::artifactory::traffic_collection}",
     match  => '^#artifactory.traffic.collectionActive=',
