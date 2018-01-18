@@ -53,6 +53,7 @@ class artifactory::config {
     ensure => present,
     path   => "${::artifactory::artifactory_etc}/artifactory.system.properties",
     line   => "artifactory.traffic.collectionActive=${::artifactory::traffic_collection}",
+    match  => '^#artifactory.traffic.collectionActive=',
   }
 
   # Install db.properties if we can
