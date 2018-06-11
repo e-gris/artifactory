@@ -1,25 +1,25 @@
 class artifactory::config {
 
-  file_line { 'artifactory file limits':
+  file_line { artifactory file limits:
     path => "/etc/security/limits.conf",
     line => "artifactory -  nofile 32000",
   }
 
   # Ack! Ptth!
-  exec { 'make artifactory home':
+  exec { make artifactory home:
     command => "mkdir --parents $::artifactory::artifactory_home",
     unless  => "test -d $::artifactory::artifactory_home",
     path    => "/bin:/usr/bin",
   }
 
-  file { $::artifactory::artifactory_home:
+  file { ${::artifactory::artifactory_home}:
      ensure => directory,
      owner  => $::artifactory::artifactory_user,
      group  => $::artifactory::artifactory_group,
      mode   => '0755',
   }
 
-  exec { 'make artifactory etc':
+  exec { make artifactory etc:
     command => "mkdir --parents $::artifactory::artifactory_etc",
     unless  => "test -d $::artifactory::artifactory_etc",
     path    => "/bin:/usr/bin",
