@@ -4,9 +4,9 @@ describe 'artifactory class' do
   context 'default parameters' do
     # Using puppet_apply as a helper
     it 'should work idempotently with no errors' do
-      pp = <<-ARTYCLASS
+      pp = <<-EOS
       class { 'artifactory': }
-      ARTYCLASS
+      EOS
 
       # Run it twice and test for idempotency
       apply_manifest(pp, catch_failures: true)
