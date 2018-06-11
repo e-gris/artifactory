@@ -50,9 +50,8 @@ class artifactory::config {
   }
 
   file_line { 'artifactory FOOBAR traffic collection':
-    ensure => present,
-    path   => "${::artifactory::artifactory_etc}/artifactory.system.properties",
-    line   => "artifactory.traffic.collectionActive=${::artifactory::traffic_collection}",
+    path => "${::artifactory::artifactory_etc}/artifactory.system.properties",
+    line => "artifactory.traffic.collectionActive=${::artifactory::traffic_collection}",
   }
 
   # Install db.properties if we can
