@@ -35,7 +35,7 @@ class artifactory::config {
 
   $etc_files = [
                 "${::artifactory::artifactory_etc}/artifactory.config.xml",
-#                "${::artifactory::artifactory_etc}/artifactory.system.properties",
+                "${::artifactory::artifactory_etc}/artifactory.system.properties",
                 "${::artifactory::artifactory_etc}/binarystore.xml",
                 "${::artifactory::artifactory_etc}/default",
                 "${::artifactory::artifactory_etc}/logback.xml",
