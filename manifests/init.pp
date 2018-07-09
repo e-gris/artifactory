@@ -11,6 +11,7 @@ class artifactory(
   Optional[String] $service_name = "artifactory",
   Optional[String] $package_version = undef,
   Optional[String] $jdbc_driver_url = undef,
+  Optional[String] $default_file_override = undef,
   Optional[Enum['mssql', 'mysql', 'oracle', 'postgresql']] $db_type = undef,
   Optional[String] $db_url = undef,
   Optional[String] $db_username = undef,
@@ -18,8 +19,8 @@ class artifactory(
   Optional[Boolean] $is_primary = true,
 ) {
 
-  class{'::artifactory::yum': }
-  -> class{'::artifactory::install': }
-  -> class{'::artifactory::config': }
-  ~> class{'::artifactory::service': }
+  class{'artifactory::yum': }
+  -> class{'artifactory::install': }
+  -> class{'artifactory::config': }
+  ~> class{'artifactory::service': }
 }
