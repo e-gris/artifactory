@@ -94,6 +94,7 @@ class artifactory::config {
     warning('Database port, hostname, username, password and type must be all be set, or not set. Install proceeding without storage.')
   }
   else {
+    notify { '========================= GOT HERE!!!':  }
     info('Primary/single node, setting up db.properties')
     file { "${artifactory::artifactory_etc}/db.properties":
       ensure  => file,
