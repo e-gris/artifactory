@@ -1,31 +1,32 @@
+# Basic configuration
 class artifactory::config {
 
-  file_line { "artifactory file limits":
-    path => "/etc/security/limits.conf",
-    line => "artifactory -  nofile 32000",
+  file_line { 'artifactory file limits':
+    path => '/etc/security/limits.conf',
+    line => 'artifactory -  nofile 32000',
   }
 
   # Ack! Ptth!
-  exec { "make artifactory home":
-    command => "mkdir --parents $artifactory::artifactory_home",
-    unless  => "test -d $artifactory::artifactory_home",
-    path    => "/bin:/usr/bin",
+  exec { 'make artifactory home':
+    command => "mkdir --parents ${artifactory::artifactory_home}",
+    unless  => "test -d ${artifactory::artifactory_home}",
+    path    => '/bin:/usr/bin',
   }
 
-  file { "${artifactory::artifactory_home}":
-     ensure => directory,
-     owner  => $artifactory::artifactory_user,
-     group  => $artifactory::artifactory_group,
-     mode   => '0755',
+  file { $artifactory::artifactory_home:
+    ensure => directory,
+    owner  => $artifactory::artifactory_user,
+    group  => $artifactory::artifactory_group,
+    mode   => '0755',
   }
 
-  exec { "make artifactory etc":
-    command => "mkdir --parents $::artifactory::artifactory_etc",
-    unless  => "test -d $artifactory::artifactory_etc",
-    path    => "/bin:/usr/bin",
+  exec { 'make artifactory etc':
+    command => "mkdir --parents ${artifactory::artifactory_etc}",
+    unless  => "test -d ${artifactory::artifactory_etc}",
+    path    => '/bin:/usr/bin',
   }
 
-  file { "${artifactory::artifactory_etc}":
+  file { $artifactory::artifactory_etc:
     ensure => directory,
     owner  => $artifactory::artifactory_user,
     group  => $artifactory::artifactory_group,
@@ -37,7 +38,7 @@ class artifactory::config {
     "${artifactory::artifactory_etc}/artifactory.system.properties",
     "${artifactory::artifactory_etc}/binarystore.xml",
     "${artifactory::artifactory_etc}/logback.xml",
-    "${artifactory::artifactory_etc}/mimetypes.xml"
+    "${artifactory::artifactory_etc}/mimetypes.xml",
   ]
 
   file { $etc_files :
@@ -84,16 +85,16 @@ class artifactory::config {
   $database_variables_defined_size = size($database_variables_defined)
 
   if (!$artifactory::is_primary) {
-    info("HA secondary node. No db.properties needed")
+    info('HA secondary node. No db.properties needed')
   }
   elsif ($database_variables_defined_size == 0) {
-    info("No database details provided, providing default")
+    info('No database details provided, providing default')
   }
   elsif ($database_variables_defined_size != $database_variables_size) {
     warning('Database port, hostname, username, password and type must be all be set, or not set. Install proceeding without storage.')
   }
   else {
-    info("Primary/single node, setting up db.properties")
+    info('Primary/single node, setting up db.properties')
     file { "${artifactory::artifactory_etc}/db.properties":
       ensure  => file,
       content => epp(
