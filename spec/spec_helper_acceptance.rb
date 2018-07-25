@@ -11,6 +11,7 @@ RSpec.configure do |c|
   # Readable test descriptions
   c.formatter = :documentation
 
+  c.mock_with :rspec
   # Configure all nodes in nodeset
   c.before :suite do
     # Install module and dependencies

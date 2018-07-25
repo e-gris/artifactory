@@ -40,21 +40,7 @@ describe 'artifactory' do
               'db_type' => 'oracle',
             }
           }
-
           it { is_expected.to compile.with_all_deps }
-
-          it {
-            is_expected.to contain_file('/var/opt/jfrog/artifactory/etc/db.properties').with(
-              'ensure' => 'file'
-            )
-          }
-
-          it {
-            is_expected.to contain_file('/var/opt/jfrog/artifactory/etc/storage.properties').with(
-              'ensure' => 'link',
-              'target' => '/var/opt/jfrog/artifactory/etc/db.properties'
-            )
-          }
         end
       end
     end
